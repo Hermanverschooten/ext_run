@@ -65,4 +65,4 @@ static ErlNifFunc nif_funcs[] =
   {"run", 1, ex_run, 0 }
 };
 
-ERL_NIF_INIT(Elixir.Updater, nif_funcs, NULL, NULL, NULL, NULL)
+ERL_NIF_INIT(Elixir.ExtRun, nif_funcs, NULL, NULL, NULL, NULL)

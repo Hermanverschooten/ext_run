@@ -1,18 +1,17 @@
 defmodule ExtRun do
   @moduledoc """
-  Documentation for ExtRun.
+    Simple NIF that allows execution of independent OS processes
   """
 
-  @doc """
-  Hello world.
+  def init() do
+    path = :filename.join(:code.priv_dir(:ext_run), 'ext_run_nif')
+    case :erlang.load_nif(path, 0) do
+      :ok -> :ok
+      error -> {:error, error}
+    end
+  end
 
-  ## Examples
-
-      iex> ExtRun.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def run(_cmd) do
+    raise "NIF run/1 not implemented"
   end
 end
