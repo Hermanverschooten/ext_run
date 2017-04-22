@@ -23,7 +23,9 @@ defmodule ExtRun.Mixfile do
 
   defp deps do
     [
-      {:elixir_make, "~> 0.4", runtime: false}
+      {:elixir_make, "~> 0.4", runtime: false},
+      {:earmark, ">= 0.0.0", only: :dev},
+      {:ex_doc, "~> 0.10", only: :dev}
     ]
   end
 end

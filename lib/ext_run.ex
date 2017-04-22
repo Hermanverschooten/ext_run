@@ -1,4 +1,6 @@
 defmodule ExtRun do
+  @on_load :init
+
   @moduledoc """
     Simple NIF that allows execution of independent OS processes
   """
