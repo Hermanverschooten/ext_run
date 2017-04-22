@@ -4,6 +4,22 @@
 #include <unistd.h>
 #include "erl_nif.h"
 
+/* Close all non-terminal file descriptors. */
+void
+close_all_non_term_fd(void)
+{
+	int n;
+	int max = 1024;
+#ifdef RLIMIT_NOFILE
+	struct rlimit lim;
+
+	if (!getrlimit(RLIMIT_NOFILE, &lim))
+		max = lim.rlim_max;
+#endif
+	for (n = 3; n < max; n++)
+		close(n);
+}
+
 char *
 alloc_and_copy_to_cstring(ErlNifBinary *string)
 {
@@ -52,6 +68,7 @@ static ERL_NIF_TERM
 
   if( pid == 0 ) {
     setpgid(pid, pid);
+    close_all_non_term_fd();
     execvp("/bin/sh", (char * const *) new_argv);
     free_cstring(cmdline);
     exit(1);
